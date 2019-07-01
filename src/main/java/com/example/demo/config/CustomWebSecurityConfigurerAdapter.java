@@ -32,7 +32,7 @@ public class CustomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAda
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.authorizeRequests().antMatchers("/register").permitAll();
-        http.authorizeRequests().antMatchers("/all", "/api/*").authenticated().anyRequest().hasAnyRole("USER").and()
+        http.authorizeRequests().antMatchers("/api/file/**", "/api/**").authenticated().anyRequest().hasAnyRole("USER").and()
                 .httpBasic();
     }
 
