@@ -2,6 +2,8 @@ package com.example.demo.service.impl;
 
 import com.example.demo.model.Credential;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,7 +11,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-@Data
+@Getter
+@Setter
 public class CustomUserDetails implements UserDetails {
 
     private static final long serialVersionUID = 1256711395932122675L;
