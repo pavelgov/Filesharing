@@ -21,7 +21,7 @@ public class FileStoreAuthControllerV1Impl{
     private final static String OK = "OK";
     private final static String ERROR = "ERROR";
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
+//    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping("/register")
     public ResponseEntity createCredential(@RequestBody @Valid CredentialDto dto) {
       String result =authenticationService.createCredential(dto);
