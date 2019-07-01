@@ -35,7 +35,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             if (repository.findByEmail(credentialDto.getEmail()) == null) {
                 Credential credential = new Credential();
                 credential.setEmail(credentialDto.getEmail());
-                credential.setHashPass(hashPassword(credentialDto.getPassword()));
+                credential.setHashPass(passwordEncoder.encode(credentialDto.getPassword()));
                 credential.setUserId(UUID.randomUUID());
                 credential.setRoles(credentialDto.getRoles());
                 try {
