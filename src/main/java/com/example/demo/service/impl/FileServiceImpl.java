@@ -8,7 +8,6 @@ import com.example.demo.repository.FileRepository;
 import com.example.demo.repository.SharedFileHolderRepository;
 import com.example.demo.rest.dto.FileInfoDto;
 import com.example.demo.service.FileService;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -60,7 +59,7 @@ public class FileServiceImpl implements FileService {
 
                     // Get the file and save it
                     byte[] bytes = file.getBytes();
-                    Path path = Paths.get(uploadPath +"\\" + fileName);
+                    Path path = Paths.get(uploadPath + "\\" + fileName);
                     Files.write(path, bytes);
                     fileRepository.save(sharedFile);
                 } else {
@@ -80,7 +79,6 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public String downloadFile(UUID fileId, UUID userId) {
-        //1.По ид файла найти владельца
         SharedFile sharedFile = fileRepository.findById(fileId).get();
         StringBuilder builder = new StringBuilder();
 
@@ -100,11 +98,11 @@ public class FileServiceImpl implements FileService {
         if (fileRepository.findByOwner(owner).stream().map(SharedFile::getOwner).collect(Collectors.toList()).contains(owner)) {//TODO
 
             SharedFile sharedFile = fileRepository.findById(fileId).get();
-            Credential credential = credentialRepository.findByEmail(email);
+            Credential credential = credentialRepository.findByUsername(email);
 
             if (sharedFile != null) {
                 SharedFileHolder fileHolder = new SharedFileHolder();
-                fileHolder.setFileHolderId(credential.getUserId());
+                fileHolder.setFileHolderId(credential.getId());
                 fileHolder.setFileId(sharedFile);
                 SharedFileHolder savedFileHolder = holderRepository.save(fileHolder);
                 return true;

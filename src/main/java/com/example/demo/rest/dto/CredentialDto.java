@@ -1,7 +1,6 @@
 package com.example.demo.rest.dto;
 
 import com.example.demo.model.Role;
-import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

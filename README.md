@@ -5,7 +5,7 @@
 2.Share file for other users @Post("/api/share") Params: "name" - String  ,"file" - MultipartFile ,Header name = "userId" String (UUID)
 
 3.Create User Post("http://localhost:8080/register"), response:status and description - userId.
- Body Json example {  "email": "asm@ail.ru", "password": "qwerty", "roles":[{  "role" :"ADMIN" }]}
+ Body Json example { "email": "1@1.ru", "password": "1", "roles":["USER"]}
 
 4. Info about owners and shared.  Get("http://localhost:8080/api/file") response arrays owners and shared
 

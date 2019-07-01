@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
 import java.util.Set;
 import java.util.UUID;
 
@@ -19,22 +18,15 @@ import java.util.UUID;
 public class Credential {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
-    @NotNull
-    @Column(name = "hashPass")
-    private String hashPass;
-
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
     @Email
-    @Column(name = "email")
-    private String email;
+    private String username;
+    private String password;
+    private boolean active;
 
-    @NotNull
-    @Column(name = "user_id")
-    private UUID userId;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 }
