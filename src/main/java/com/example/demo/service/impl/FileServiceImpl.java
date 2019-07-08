@@ -95,7 +95,7 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public boolean shareFile(String email, UUID fileId, UUID owner) {
-        if (fileRepository.findByOwner(owner).stream().map(SharedFile::getOwner).collect(Collectors.toList()).contains(owner)) {//TODO
+        if (fileRepository.findByOwner(owner).stream().map(SharedFile::getOwner).collect(Collectors.toList()).contains(owner)) {
 
             SharedFile sharedFile = fileRepository.findById(fileId).get();
             Credential credential = credentialRepository.findByUsername(email);
