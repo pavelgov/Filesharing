@@ -23,7 +23,7 @@ public class SharedFile {
 
     @NotNull
     @Column(name = "user_id")
-    private UUID owner;
+    private String owner;
 
     @NotNull
     @Column(name = "file_name")

@@ -9,5 +9,5 @@ import java.util.List;
 import java.util.UUID;
 @Repository
 public interface SharedFileHolderRepository extends JpaRepository<SharedFileHolder, UUID> , JpaSpecificationExecutor<com.example.demo.model.SharedFileHolder> {
-    List<SharedFileHolder> findByfileHolderId(UUID fileHolderId);
+    List<SharedFileHolder> findByfileHolderId(String fileHolderId);
 }

@@ -41,7 +41,7 @@ public class FileServiceImpl implements FileService {
     private CredentialRepository credentialRepository;
 
     @Override
-    public String uploadFile(String fileName, MultipartFile file, UUID userId) {
+    public String uploadFile(String fileName, MultipartFile file, String owner) {
         if (file != null && !file.getOriginalFilename().isEmpty()) {
 
             File uploadDir = new File(uploadPath);
@@ -52,7 +52,7 @@ public class FileServiceImpl implements FileService {
             SharedFile sharedFile = new SharedFile();
             sharedFile.setId(UUID.randomUUID());
             sharedFile.setFileName(fileName);
-            sharedFile.setOwner(userId);
+            sharedFile.setOwner(owner);
 
             try {
                 if (fileRepository.findByFileName(fileName) == null) {
@@ -78,11 +78,11 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public String downloadFile(UUID fileId, UUID userId) {
+    public String downloadFile(UUID fileId, String owner) {
         SharedFile sharedFile = fileRepository.findById(fileId).get();
         StringBuilder builder = new StringBuilder();
 
-        if (userId.equals(sharedFile.getOwner()) || sharedFile.getFileHolders().contains(userId)) {
+        if (owner.equals(sharedFile.getOwner()) || sharedFile.getFileHolders().contains(owner)) {
             try {
                 Files.lines(Paths.get(uploadPath + "/" + sharedFile.getFileName()), StandardCharsets.UTF_8).forEach(s -> builder.append(s));
             } catch (IOException e) {
@@ -94,7 +94,7 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public boolean shareFile(String email, UUID fileId, UUID owner) {
+    public boolean shareFile(String email, UUID fileId, String owner) {
         if (fileRepository.findByOwner(owner).stream().map(SharedFile::getOwner).collect(Collectors.toList()).contains(owner)) {
 
             SharedFile sharedFile = fileRepository.findById(fileId).get();
@@ -102,7 +102,7 @@ public class FileServiceImpl implements FileService {
 
             if (sharedFile != null) {
                 SharedFileHolder fileHolder = new SharedFileHolder();
-                fileHolder.setFileHolderId(credential.getId());
+                fileHolder.setFileHolderId(credential.getUsername());
                 fileHolder.setFileId(sharedFile);
                 SharedFileHolder savedFileHolder = holderRepository.save(fileHolder);
                 return true;
@@ -113,7 +113,7 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public FileInfoDto getFileInfo(UUID owner) {
+    public FileInfoDto getFileInfo(String owner) {
         FileInfoDto fileInfoDto = new FileInfoDto();
         List<SharedFile> sharedFiles = fileRepository.findByOwner(owner);
 

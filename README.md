@@ -1,6 +1,6 @@
 # If you want to  see all controllers go to http://localhost:8080/swagger-ui.html
 
-1.Create User  - Post("http://localhost:8080/register"), response:"status" and "description" - userId.
+1.Create User  - Post("http://localhost:8080/register"), response:"status" - OK or Eror and "description" - email or description of error.
     Body Json example { "email": "1@1.ru", "password": "1", "roles":["USER"]}
 
 2.Upload File - Post  ("http://localhost:8080/api/file"). Header param: "userId" - UUID (receive after registration).

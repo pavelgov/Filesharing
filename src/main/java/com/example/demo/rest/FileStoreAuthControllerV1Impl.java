@@ -23,19 +23,8 @@ public class FileStoreAuthControllerV1Impl {
 
     @PostMapping("/register")
     public ResponseEntity createCredential(@RequestBody @Valid CredentialDto dto) {
-        String result = authenticationService.createCredential(dto);
+        return authenticationService.createCredential(dto);
 
-        ResponseCreateCredential resp = new ResponseCreateCredential();
-        resp.setDescription(result);
-
-        try {
-            UUID.fromString(result);
-            resp.setStatus(OK);
-            return ResponseEntity.status(200).body(resp);
-        } catch (IllegalArgumentException exception) {
-            resp.setStatus(ERROR);
-            return ResponseEntity.status(400).body(resp);
-        }
     }
 
 }

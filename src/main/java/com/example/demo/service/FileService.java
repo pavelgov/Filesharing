@@ -6,11 +6,11 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.UUID;
 
 public interface FileService {
-    String uploadFile(String name, MultipartFile file, UUID userId);
+    String uploadFile(String name, MultipartFile file, String owner);
 
-    String downloadFile(UUID fileId,UUID userId);
+    String downloadFile(UUID fileId,String owner);
 
-    boolean shareFile(String email, UUID fileId, UUID owner);
+    boolean shareFile(String email, UUID fileId, String owner);
 
-    FileInfoDto getFileInfo(UUID owner);
+    FileInfoDto getFileInfo(String owner);
 }

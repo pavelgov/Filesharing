@@ -23,7 +23,7 @@ public class SharedFileHolder {
 
     @NotNull
     @Column(name = "file_holder_id")
-    private UUID fileHolderId;
+    private String fileHolderId;
 
 
     @ManyToOne

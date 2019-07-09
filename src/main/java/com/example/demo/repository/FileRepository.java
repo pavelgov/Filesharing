@@ -11,5 +11,5 @@ import java.util.UUID;
 @Repository
 public interface FileRepository extends JpaRepository<SharedFile, UUID> , JpaSpecificationExecutor<SharedFile> {
     SharedFile findByFileName(String fileName);
-    List<SharedFile> findByOwner(UUID owner);
+    List<SharedFile> findByOwner(String owner);
 }

@@ -1,9 +1,10 @@
 package com.example.demo.service;
 
 import com.example.demo.rest.dto.CredentialDto;
+import org.springframework.http.ResponseEntity;
 
 public interface AuthenticationService {
 
-    String createCredential(CredentialDto credentialDto);
+    ResponseEntity createCredential(CredentialDto credentialDto);
 
 }
